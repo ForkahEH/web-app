@@ -8,6 +8,7 @@ node{
        sh "${MHD}/bin/mvn clean package"
  
     }
+    .
   */
     /*
     stage('deploy'){
