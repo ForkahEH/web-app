@@ -1,0 +1,33 @@
+node("node1"){
+  def MHD = tool name: "Maven3.8.8"
+  
+    stage("1. Git clone from repo"){
+     sh "echo start of git clone"
+     git branch: 'main', url: 'https://github.com/JOMACS-IT/web-app-Annex.git'
+     sh "echo end of git clone"
+   }
+  
+    stage("2.Build from Maven"){
+     sh "echo start building from Maven"
+     sh "${MHD}/bin/mvn clean package"
+     sh "echo end of building from Maven"
+   } 
+   
+    stage("3. Code Quality Scan"){
+     sh "echo start code scan"
+     sh "${MHD}/bin/mvn sonar:sonar"
+     sh "echo end of code scan"
+   }
+   
+    stage("4. Store the Artifact to Nexus"){
+     sh "echo start uploading artifact to Nexus"
+     sh "${MHD}/bin/mvn deploy"
+     sh "echo end of upload to Nexus"
+    }
+    
+    stage("5. deploy to Tomcat"){
+     sh ("echo deploying to Tomcat Server in UAT")
+     deploy adapters: [tomcat9(credentialsId: 'tomcard_cred.', path: '', url: 'http://16.170.204.254:9090')], contextPath: null, war: 'target/*.war'
+     sh "echo end of deploy to Tomcat  Server in UAT"
+    }
+ }
