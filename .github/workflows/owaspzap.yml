@@ -4,10 +4,10 @@ on: [push]
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
-    name: Scan OWASP Juice Shop
+    name: Scan MLK Kilimanjaro
     permissions: write-all
     steps:
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.8.0
         with:
-          target: 'https://www.zaproxy.org/'
+          target: 'https://dev.kilimanjaro-production.app/'
