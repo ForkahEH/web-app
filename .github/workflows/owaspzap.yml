@@ -4,10 +4,10 @@ on: [push]
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
-    name: Scan MLK Kilimanjaro
+    name: Scan MLK Kilimanjaro Dev
     permissions: write-all
     steps:
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.8.0
         with:
-          target: 'https://dev.kilimanjaro-production.app/'
+          target: 'https://urology-dev.kilimanjaro-production.app/'
