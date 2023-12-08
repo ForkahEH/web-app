@@ -10,4 +10,4 @@ jobs:
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.8.0
         with:
-          target: 'https://urology-dev.kilimanjaro-production.app/'
+          target: 'https://urology.kilimanjaro-production.app/'
