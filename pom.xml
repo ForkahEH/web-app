@@ -97,7 +97,7 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>JOMACS Releases Nexus Repository</name>
-	      <url>http://172.31.20.240:8081/repository/gtb-app-release/</url>
+	      <url>http://http://172.31.30.242:8081/repository/gtbank-app-release/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
