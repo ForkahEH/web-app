@@ -97,13 +97,13 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>JOMACS Releases Nexus Repository</name>
-	      <url>http://http://172.31.30.242:8081/repository/gtbank-app-release/</url>
+	      <url>http://http://3.144.218.0:8081/repository/gtbank-app-release/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>JOMACS Snapshot Nexus Repository </name>
-	      <url>http:http://172.31.30.242:8081/repository/gtbank-app-snapshot/</url>
+	      <url>http:http://3.144.218.0:8081/repository/gtbank-app-snapshot/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
