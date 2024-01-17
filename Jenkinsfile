@@ -1,53 +1,56 @@
 pipeline{
   agent any
   tools{
-    maven "Maven3.8.8"
+      maven "maven3.8.8"
   }
-        stages{
-          stage("1. Git clone from repo"){
-            steps{
-              sh "echo start of git clone"
-              git branch: 'main', url: 'https://github.com/JOMACS-IT/web-app-Annex.git'
-              sh "echo end of git clone"
-            }
-          }
-          
-          stage("2. Build from Maven"){
-            steps{
-              sh "echo start building from Maven"
-              sh "mvn clean package"
-              sh "echo end of build"
-            }
-          }
-          
-          stage("3. Code Scan"){
-            steps{
-              sh "echo start of code scan"
-              sh "mvn sonar:sonar"
-              sh "echo end of code scan"
-            }
-          }
-        
-          stage("4. Store Artifacts"){
-            steps{
-              sh "echo start depolying to Nexus"
-              sh "mvn deploy"
-              sh "echo end of Delpoying "
-            }
-          }
-          
-          stage("5. Delpoying to Tomcat in UAT"){
-            steps{
-              sh "echo start deploying to server in UAT Env."
-              deploy adapters: [tomcat9(credentialsId: 'tomcard_cred.', path: '', url: 'http://16.170.204.254:9090')], contextPath: null, war: 'target/*.war'
-            }
-          }
-          
-          stage("6. Send E-mail Notifcation"){
-            steps{
-              sh "echo E-mail Notification to DevOps Team"
-              emailext body: 'The Deployment is Successful - Email Alert.', subject: 'Deployment Succes - Email Notification', to: 'ben.p.tawiah@gmail.com'
-            }
-          }
-        }
+   stages{
+  stage("1. Build from Maven"){
+    steps{
+     sh "echo start git clone from Repository"
+     git branch: 'main', url: 'https://github.com/JOMACS-IT/web-app-Annex.git'
+     sh "echo end of git clone"  
+    }
+  }
+  
+  stage("2. Build from Maven"){
+    steps{
+        sh "echo start building from Maven"
+        sh "mvn clean package"
+        sh "echo end of build"
+    }  
+  }
+  
+  stage("3. Code Scan with Sonarqube"){
+    steps{
+        sh "echo start of code scan using sonarqube"
+        sh "mvn sonar:sonar"
+        sh "echo end of code scan using sonarqube"
+    }
+  }
+  
+  stage("4. Deploy artifacts to Nexus"){
+     steps{
+         sh "echo Deploy to Nexus"
+         sh "mvn deploy"
+         sh "echo end Deploy to Nexus"
+     }
+  }
+  
+  stage("5. Deploy to Tomcat Server in UAT"){
+    steps{
+        sh "echo start deploying to tomcat server in UAT Environment"
+        deploy adapters: [tomcat9(credentialsId: 'tomcard_credtial', path: '', url: 'http://18.118.1.16:9090/')], contextPath: null, war: 'target/*.war'
+        sh "echo end deploying to tomcat server in UAT Environment"
+    }
+  }
+  
+  stage("6. Notification Alert"){
+    steps{
+        sh " echo start email notification to DevOps Team"
+        emailext body: 'Declarative Project - Email Alert', subject: 'Declarative Project', to: 'info@jomacsit.com'
+        sh " echo end email notification to DevOps Team"
+    }
+  }
+  
+ }
 }
